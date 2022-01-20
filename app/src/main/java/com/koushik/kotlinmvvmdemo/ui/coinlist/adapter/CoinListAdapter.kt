@@ -8,7 +8,7 @@ import com.koushik.kotlinmvvmdemo.data.model.Coin
 import com.koushik.kotlinmvvmdemo.databinding.ListItemCoinBinding
 
 class CoinListAdapter(
-    var coinList: List<Coin>,
+    var coinList: ArrayList<Coin>,
 ) : RecyclerView.Adapter<CoinListAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ListItemCoinBinding) : RecyclerView.ViewHolder(binding.root)
@@ -34,4 +34,12 @@ class CoinListAdapter(
     override fun getItemCount(): Int {
         return coinList.size
     }
+
+    fun updateCoinList(list: List<Coin>) {
+        coinList.clear()
+        coinList.addAll(list)
+        notifyDataSetChanged()
+    }
+
+    fun getCurrentCoin(position: Int) = coinList[position]
 }

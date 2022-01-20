@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import com.koushik.kotlinmvvmdemo.data.model.Coin
 import com.koushik.kotlinmvvmdemo.databinding.FragmentCoinListBinding
 import com.koushik.kotlinmvvmdemo.ui.coinlist.adapter.CoinListAdapter
 import com.koushik.kotlinmvvmdemo.ui.coinlist.viewmodel.CoinListViewModel
@@ -25,14 +24,12 @@ class CoinListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val coinListViewModel by viewModels<CoinListViewModel>()
-    private lateinit var coinList: ArrayList<Coin>
     private lateinit var coinListAdapter: CoinListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        coinList = ArrayList()
-        coinListAdapter = CoinListAdapter(coinList)
+        coinListAdapter = CoinListAdapter(arrayListOf())
     }
 
     override fun onCreateView(
@@ -53,7 +50,7 @@ class CoinListFragment : Fragment() {
         binding.rvCoinList.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
                 val action =
-                    CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(coinList[position].id)
+                    CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(coinListAdapter.getCurrentCoin(position).id)
                 binding.rootLayout.findNavController().navigate(action)
             }
         })
@@ -71,8 +68,7 @@ class CoinListFragment : Fragment() {
             when (response) {
                 is Resource.Success -> {
                     response.data?.let {
-                        coinList.addAll(response.data)
-                        coinListAdapter.notifyDataSetChanged()
+                        coinListAdapter.updateCoinList(response.data)
                     }
                     binding.pbLoader.visibility = View.GONE
                 }
