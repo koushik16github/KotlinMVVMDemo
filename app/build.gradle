@@ -96,15 +96,14 @@ dependencies {
     // Mockk.io
     androidTestImplementation "io.mockk:mockk-android:$mockkVersion"
 
-    // androidx.test
+    // Testing
     androidTestImplementation "androidx.test.ext:junit:$androidxTestJunitExtensionVersion"
     androidTestImplementation "androidx.test.ext:junit-ktx:$androidxTestJunitExtensionVersion"
     androidTestImplementation "androidx.test:runner:$androidxTestVersion"
     androidTestImplementation "androidx.test:core:$androidxTestVersion"
 
-    // androidx.fragment
+    // Fragment Testing
     debugImplementation "androidx.fragment:fragment-testing:$fragmentVersion"
-    implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
 
     // Espresso
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
